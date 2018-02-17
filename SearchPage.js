@@ -21,6 +21,8 @@ function urlForQueryAndPage(key, value, pageNumber) {
       action: 'search_listings',
       page: pageNumber,
   };
+  // key is 'place_name'
+  // value is this.state.searchString
   data[key] = value;
 
   const querystring = Object.keys(data)
@@ -59,10 +61,10 @@ export default class SearchPage extends Component<{}> {
     if (response.application_response_code.substr(0, 1) === '1') {
       console.log('Properties found: ' + response.listings.length);
       this.props.navigator.push({
-      title: 'Results',
-      component: SearchResults,
-      passProps: {listings: response.listings}
-    });
+        title: 'Results',
+        component: SearchResults,
+        passProps: {listings: response.listings}
+      });
     } else {
       this.setState({ message: 'Location not recognized; please try again.'});
     }

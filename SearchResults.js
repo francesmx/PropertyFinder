@@ -9,6 +9,7 @@ import {
   FlatList,
   Text,
 } from 'react-native';
+import PropertyDetails from './PropertyDetails';
 
 class ListItem extends React.PureComponent {
   _onPress = () => {
@@ -39,7 +40,7 @@ class ListItem extends React.PureComponent {
 }
 
 export default class SearchResults extends Component<{}> {
-  _keyExtractor = (item, index) => index;
+  _keyExtractor = (item, index) => index.toString();
 
   _renderItem = ({item, index}) => (
       <ListItem
@@ -48,9 +49,13 @@ export default class SearchResults extends Component<{}> {
         onPressItem={this._onPressItem}
       />
     );
-
+    
     _onPressItem = (index) => {
-      console.log("Pressed row: "+index);
+      this.props.navigator.push({
+        title: "Property",
+        component: PropertyDetails,
+        passProps: {property: this.props.listings[index]}
+      });
     };
 
   render() {
